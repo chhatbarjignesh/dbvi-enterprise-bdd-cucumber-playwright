@@ -20,7 +20,10 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "11"
+          # google-java-format 1.27.0 (via Spotless) needs a JDK that can load Java 17
+          # class files to *run*; the project's own compiled bytecode target (11, in
+          # pom.xml) is unaffected by this.
+          java-version: "17"
           cache: maven
 
       - name: Check code formatting (Google Java Format / AOSP)
@@ -37,7 +40,10 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "11"
+          # google-java-format 1.27.0 (via Spotless) needs a JDK that can load Java 17
+          # class files to *run*; the project's own compiled bytecode target (11, in
+          # pom.xml) is unaffected by this.
+          java-version: "17"
           cache: maven
 
       - name: Resolve Playwright version from pom.xml
@@ -80,6 +86,15 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
+
+      # actions/checkout leaves a .git dir in gh-pages/ even when the ref doesn't exist yet
+      # (first-ever deploy) or on a normal successful checkout. simple-elf/allure-report-action
+      # copies the whole gh-pages/ folder forward into allure-history, .git included, which
+      # then corrupts peaceiris/actions-gh-pages' own git operations on the next step ("src
+      # refspec gh-pages does not match any" on push). Strip it before the report is generated.
+      - name: Remove stray .git from fetched Allure history
+        if: always()
+        run: rm -rf gh-pages/.git
 
       - name: Generate Allure HTML report
         if: always()
