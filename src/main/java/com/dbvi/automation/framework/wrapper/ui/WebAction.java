@@ -1,12 +1,12 @@
 package com.dbvi.automation.framework.wrapper.ui;
 
+import com.dbvi.automation.framework.config.FrameworkProperties;
+import com.dbvi.automation.framework.factory.DriverFactory;
+import com.dbvi.automation.framework.loggers.ReportLogger;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
-import com.dbvi.automation.framework.config.FrameworkProperties;
-import com.dbvi.automation.framework.factory.DriverFactory;
-import com.dbvi.automation.framework.loggers.ReportLogger;
 
 /**
  * WebAction is a fluent wrapper for Playwright interactions. It automatically enforces

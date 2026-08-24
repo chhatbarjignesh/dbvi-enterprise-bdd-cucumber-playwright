@@ -1,8 +1,8 @@
 package com.dbvi.automation.framework.perfecto;
 
+import com.dbvi.automation.framework.config.FrameworkProperties;
 import com.google.gson.Gson;
 import com.microsoft.playwright.Page;
-import com.dbvi.automation.framework.config.FrameworkProperties;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;

@@ -1,13 +1,13 @@
 package com.dbvi.automation.framework.factory;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserContext;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
 import com.dbvi.automation.framework.config.FrameworkProperties;
 import com.dbvi.automation.framework.loggers.ReportLogger;
 import com.dbvi.automation.framework.perfecto.PerfectoReporter;
 import com.dbvi.automation.framework.utils.testdata.UserCredentialsProvider;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

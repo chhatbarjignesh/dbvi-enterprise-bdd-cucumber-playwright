@@ -3,9 +3,9 @@ package com.dbvi.automation.pages.example;
 import com.dbvi.automation.pages.BasePage;
 
 /**
- * HomePage is the minimal reference Page Object backing the framework's own self-test
- * (test.feature / ExampleSteps). It demonstrates the Single-Class POM pattern: extend BasePage,
- * drive interactions through the inherited webAction wrapper, keep selectors as private constants.
+ * HomePage is the minimal reference Page Object backing the framework's own self-test (test.feature
+ * / ExampleSteps). It demonstrates the Single-Class POM pattern: extend BasePage, drive
+ * interactions through the inherited webAction wrapper, keep selectors as private constants.
  */
 public class HomePage extends BasePage {
 

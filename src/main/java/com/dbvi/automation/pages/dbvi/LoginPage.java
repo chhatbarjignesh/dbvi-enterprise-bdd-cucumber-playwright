@@ -5,7 +5,8 @@ import org.assertj.core.api.Assertions;
 
 /**
  * Single-Class Page Object for the MMS Member Portal login flow. Covers the header "Log in" entry
- * point on the public home page and the hosted OIDC sign-in form served from mmfauth.dadabhagwan.org.
+ * point on the public home page and the hosted OIDC sign-in form served from
+ * mmfauth.dadabhagwan.org.
  */
 public class LoginPage extends BasePage {
 

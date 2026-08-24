@@ -1,11 +1,11 @@
 package com.dbvi.automation.framework.factory;
 
+import com.dbvi.automation.framework.config.FrameworkProperties;
+import com.dbvi.automation.framework.loggers.ReportLogger;
 import com.google.gson.JsonObject;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Playwright;
-import com.dbvi.automation.framework.config.FrameworkProperties;
-import com.dbvi.automation.framework.loggers.ReportLogger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

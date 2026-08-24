@@ -1,12 +1,11 @@
 /**
- * COPYRIGHT (C) DBVI, INC. ALL RIGHTS RESERVED. THIS SOFTWARE IS THE CONFIDENTIAL AND
- * PROPRIETARY INFORMATION OF DBVI. ANY DUPLICATION OR USAGE OUTSIDE THE NEEDS OF DBVI
- * IS PROHIBITED.
+ * COPYRIGHT (C) DBVI, INC. ALL RIGHTS RESERVED. THIS SOFTWARE IS THE CONFIDENTIAL AND PROPRIETARY
+ * INFORMATION OF DBVI. ANY DUPLICATION OR USAGE OUTSIDE THE NEEDS OF DBVI IS PROHIBITED.
  */
 package com.dbvi.automation.framework.loggers;
 
-import com.epam.reportportal.service.ReportPortal;
 import com.dbvi.automation.framework.config.FrameworkProperties;
+import com.epam.reportportal.service.ReportPortal;
 import io.qameta.allure.Allure;
 import java.util.Calendar;
 import org.testng.Reporter;
