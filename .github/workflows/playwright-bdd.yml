@@ -107,3 +107,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+          # gh-pages doesn't exist yet on a first deploy; the action's clone-then-fallback
+          # branch-detection can end up with nothing to commit in that case ("src refspec
+          # gh-pages does not match any" on push). force_orphan sidesteps that entirely by
+          # always building a fresh orphan commit from publish_dir. Allure's own trend/history
+          # graphs are unaffected since that data lives in the last-history files simple-elf
+          # already carries forward, not in git commit history.
+          force_orphan: true
