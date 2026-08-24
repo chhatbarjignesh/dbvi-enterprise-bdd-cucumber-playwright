@@ -4,7 +4,7 @@ This file is the repo-wide mandate for Claude Code (or any AI assistant) working
 
 > See [FRAMEWORK_MAP.md](FRAMEWORK_MAP.md) for the full directory map, package layout, and layered architecture diagrams. See [README.md](README.md) for setup, configuration, and CLI usage.
 >
-> This repo ships with only one working project module: `example` (`pages/example/HomePage.java` + `steps/ExampleSteps.java` + `test.feature` + `env/example/`). The prior `dsp`/`events` business modules were removed as client-specific. `{projectName}` below is a placeholder — substitute your own module name (e.g. `checkout`), following the `example` module's layout as your template.
+> This repo ships two working project modules: `example` (`pages/example/HomePage.java` + `steps/ExampleSteps.java` + `test.feature` + `env/example/`), the framework's own minimal reference/self-test, and `dbvi` (`pages/dbvi/LoginPage.java` + `steps/dbvi/LoginSteps.java` + `features/dbvi/login.feature` + `env/dbvi/`), a real scenario testing the MMS Member Portal login. The prior `dsp`/`events` business modules were removed as client-specific. `{projectName}` below is a placeholder — substitute your own module name, following either module's layout as your template.
 
 ---
 

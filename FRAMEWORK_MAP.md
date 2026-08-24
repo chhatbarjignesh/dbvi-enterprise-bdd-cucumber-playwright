@@ -56,7 +56,7 @@ dbvi-enterprise-bdd-cucumber-playwright/
             └── env/example/{QA,QA1,UAT}/testdata.yaml
 ```
 
-**Multi-project isolation convention**: every new business application gets its own folder name (e.g. `example` — shipped — or `checkout`, `dsp`, or any name you choose) reused consistently across four places — `pages/{project}/`, `steps/{project}/`, `features/{project}/`, and `env/{project}/{env}/testdata.yaml`. `project-name` in `config.properties` selects which one `TestData` and the Jenkins pipeline target. The `dsp`/`events` business modules that originally shipped here were removed as client-specific; `example` is the only one wired up now.
+**Multi-project isolation convention**: every new business application gets its own folder name (e.g. `example` and `dbvi` — both shipped — or any name you choose) reused consistently across four places — `pages/{project}/`, `steps/{project}/`, `features/{project}/`, and `env/{project}/{env}/testdata.yaml`. `project-name` in `config.properties` selects which one `TestData` and CI target. The prior `dsp`/`events` business modules were removed as client-specific.
 
 ---
 
@@ -144,7 +144,7 @@ graph TD
 
 1. **🚀 Orchestration Layer**: Jenkins triggers the pipeline, passing environment variables, thread concurrency limits, and SSO credentials securely as masked parameters.
 2. **⚙️ Runtime Layer**: TestNG initiates. `DynamicSuiteListener` pre-creates an empty `rerun.txt` to prevent classloader crashes and sequences the primary run and the rerun under two separate `<test>` blocks.
-3. **🛢️ Data Layer**: Staging accounts are dynamically fetched and locked in PostgreSQL at test startup and safely unlocked during teardown (`quitPlaywright()`). SKUs are resolved on-the-fly using random SQL queries.
+3. **🛢️ Data Layer**: Staging accounts are dynamically fetched and locked in PostgreSQL at test startup and safely unlocked during teardown (`quitPlaywright()`).
 4. **🎭 Browser Interaction Layer**: Playwright spins up headed, headless, or Perfecto cloud sessions. `WebAction` handles SSO logins, waits for dynamic redirects, and pierces nested Shadow DOM elements natively using CSS selectors.
 5. **📊 Reporting Layer**: Allure packages failures with screenshots/videos, ReportPortal merges rerun retry results inside the active launch session, and a post-suite SMTP process dispatches HTML reports to stakeholders.
 
@@ -175,10 +175,9 @@ graph TD
 
     subgraph Layer_3 ["🛢️ 3. Staging Block (Database & Yaml)"]
         D & F -->|Lock & Fetch Users <br/> Unlock on Teardown| G[(PostgreSQL Staging Users)]
-        D & F -->|Query Random SKUs| H[(PostgreSQL SKU Details)]
         D & F -->|Load Configs| I[Local properties & YAML]
     end
-    class G,H,I data;
+    class G,I data;
 
     subgraph Layer_4 ["🎭 4. Browser Block (Playwright & SSO)"]
         D & F -->|Launches Context| J[Playwright Session <br/> Headless / Headed / Perfecto Cloud]
@@ -222,12 +221,12 @@ These are pre-existing characteristics of the framework worth knowing before you
 
 ## 6. Extending the Framework
 
-To add a new project module (e.g. `checkout`):
+To add a new project module (e.g. `myproject`) — see the `dbvi` module (`pages/dbvi/LoginPage.java` + `steps/dbvi/LoginSteps.java` + `features/dbvi/login.feature` + `env/dbvi/QA/`) for a real, working reference:
 
-1. Create `src/main/java/com/dbvi/automation/pages/checkout/` — one class per page, selectors as `private static final String`, actions + AssertJ assertions in the same class (Single-Class POM).
-2. Create `src/test/java/com/dbvi/automation/steps/checkout/` — assertion-free step definitions delegating to the page objects.
-3. Create `src/test/resources/features/checkout/*.feature`.
-4. Create `src/test/resources/env/checkout/{env}/testdata.yaml`.
-5. Run with `mvn clean test -Dproject-name=checkout -Dcucumber.filter.tags="@CHECKOUT_REGRESSION"`.
+1. Create `src/main/java/com/dbvi/automation/pages/myproject/` — one class per page, selectors as `private static final String`, actions + AssertJ assertions in the same class (Single-Class POM).
+2. Create `src/test/java/com/dbvi/automation/steps/myproject/` — assertion-free step definitions delegating to the page objects.
+3. Create `src/test/resources/features/myproject/*.feature`.
+4. Create `src/test/resources/env/myproject/{env}/testdata.yaml`.
+5. Run with `mvn clean test -Dproject-name=myproject -Dcucumber.filter.tags="@MYPROJECT_REGRESSION"`.
 
 See [CLAUDE.md](CLAUDE.md) for the full step-by-step authoring workflow and quality checklist.

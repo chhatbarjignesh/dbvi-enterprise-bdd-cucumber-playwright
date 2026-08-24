@@ -6,7 +6,7 @@ This document outlines the package mappings, directory locations, and configurat
 
 ## 📂 Framework Directory & Package Mapping
 
-All assets are separated by project name (e.g. `example`, `checkout`) to ensure multi-project isolation:
+All assets are separated by project name (e.g. `example`, `dbvi`) to ensure multi-project isolation:
 
 ```text
 src/

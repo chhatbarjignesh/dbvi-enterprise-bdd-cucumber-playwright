@@ -16,10 +16,9 @@ Welcome to the **Dbvi Enterprise Playwright Cucumber BDD Automation Framework**.
 
 1. **Pure Playwright Execution Engine**: Completely purged of legacy Selenium or Appium dependencies, running 100% on Playwright's native WebSocket protocol (`1.52.0`) for blisteringly fast command dispatches.
 2. **Dynamic PostgreSQL DB Integration**:
-   * **Active SKU Retrievals**: Dynamically queries the `"EXECUTION".sku_details` table over JDBC using random single-row retrievals matching your active staging profile (e.g., `QA1`).
    * **Thread-Safe User Account Locking**: Queries `"EXECUTION".userdetails` to fetch an unlocked user account matching your Gherkin type (e.g., `regularUser`), dynamically locks the user via `lockedstatus = 'Y'` to prevent parallel conflicts, and automatically **unlocks** the account inside the database upon test teardown (`@After`).
 3. **Dynamic Multi-Project Modular Isolation**:
-   * Supports unlimited separate business applications (e.g., `dsp`, `dmob`, `gmob`) under isolated subdirectories for features, step-definitions, and environment YAML files.
+   * Supports unlimited separate business applications (e.g., `example`, `dbvi`) under isolated subdirectories for features, step-definitions, and environment YAML files.
    * Completely avoids asset pollution and naming collisions across different teams.
 4. **Secure Encryption Engine**: Fully integrates the corporate `PBEWithMD5AndDES` password-based encryption standard, allowing database passwords to be stored as encrypted strings and decrypted strictly in memory on-the-fly. *(Note: the PBE key/salt ship inside this repo, so this scheme only obscures the password from casual viewing — see the [Framework Map](FRAMEWORK_MAP.md#security-notes) for guidance on rotating to a real secrets manager.)*
 5. **Zero-Flakiness Dynamic `WebAction` Wrapper**:
@@ -96,7 +95,7 @@ dbvi-enterprise-bdd-cucumber-playwright/
 │                       └── UAT/
 ```
 
-> ℹ️ This repo ships with only the generic `example` project module (`pages/example/HomePage.java` + `steps/ExampleSteps.java` + `test.feature` + `env/example/`), wired up and working out of the box. The prior `dsp`/`events` business-specific modules were removed as client-specific — add your own project module following the same four-location convention (see [FRAMEWORK_MAP.md](FRAMEWORK_MAP.md) § Extending the Framework).
+> ℹ️ This repo ships two working project modules out of the box: the generic `example` module shown above (`pages/example/HomePage.java` + `steps/ExampleSteps.java` + `test.feature` + `env/example/`), and `dbvi` (`pages/dbvi/LoginPage.java` + `steps/dbvi/LoginSteps.java` + `features/dbvi/login.feature` + `env/dbvi/`), a real scenario testing the MMS Member Portal login. The prior `dsp`/`events` business-specific modules were removed as client-specific — add your own project module following the same four-location convention (see [FRAMEWORK_MAP.md](FRAMEWORK_MAP.md) § Extending the Framework).
 
 ---
 
