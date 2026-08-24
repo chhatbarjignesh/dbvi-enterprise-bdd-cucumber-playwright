@@ -500,7 +500,7 @@ public class ReportPortalEmailNotifier {
         String host =
                 System.getProperty("mail.smtp.host", "mail.dbvi.com"); // Default Dbvi mail server
         String port = System.getProperty("mail.smtp.port", "25");
-        String from = System.getProperty("mail.from", "ecomqa@dbvi.com");
+        String from = System.getProperty("mail.from", "testqa@dbvi.com");
 
         Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
