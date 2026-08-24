@@ -49,22 +49,10 @@ jobs:
       - name: Install Playwright browsers (chromium + OS deps)
         run: npx -y playwright@${{ steps.playwright-version.outputs.version }} install --with-deps chromium
 
-      # Two separate `mvn test` invocations because TestData resolves its YAML file from a
-      # single global `project-name`/`env` pair per JVM run (see FrameworkProperties). Both
-      # write into the same target/allure-results dir (no `clean` in between) so they combine
-      # into one Allure report below.
-      - name: Run framework self-test scenarios (project=example)
-        run: |
-          mvn test \
-            -Dcucumber.filter.tags="not @MMS_REGRESSION" \
-            -Dproject-name=example \
-            -Dheadless=true \
-            -Dread-credentials-from-db=false \
-            -Dperfecto.enabled=false \
-            -Drp.enable=false
-
+      # Only the dbvi project runs on every commit (the real testmms.na.dadabhagwan.org
+      # scenario). The `example` module is just the framework's own template/reference
+      # project, not something we need to verify in CI here.
       - name: Run MMS Member Portal login scenario (project=dbvi)
-        if: always()
         run: |
           mvn test \
             -Dcucumber.filter.tags="@MMS_REGRESSION" \
