@@ -1,0 +1,19 @@
+# QA Environment Test Data
+search:
+  term: "playwright"
+  expectedResults: 10
+  regularsku: "2598637"
+
+users:
+  regularuser:
+    username: "qa_regular_user"
+    password: "qa_regular_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"
+  rewarduser:
+    username: "qa_reward_user"
+    password: "qa_reward_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"
+  diamonduser:
+    username: "qa_diamond_user"
+    password: "qa_diamond_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"

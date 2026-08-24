@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Product Defects (Assertions)",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*AssertionError.*|.*Assertion failed.*|.*expected.*was.*"
+  },
+  {
+    "name": "Locator & Element Timeout Defects",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*TimeoutError.*|.*outside of the viewport.*|.*visible, enabled and stable.*|.*not visible.*|.*ElementNotInteractableException.*|.*NoSuchElementException.*|.*unable to locate.*"
+  },
+  {
+    "name": "Database & Integration Defects",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*Database.*|.*PostgreSQL.*|.*SQLException.*|.*lockedstatus.*|.*userdetails.*|.*sku_details.*"
+  },
+  {
+    "name": "Infrastructure & Cloud Issues",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*WebSocket.*|.*Perfecto.*|.*connect.*|.*Unauthorized.*|.*unreachable.*"
+  }
+]

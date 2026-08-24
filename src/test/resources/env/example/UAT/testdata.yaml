@@ -1,0 +1,19 @@
+# UAT Environment Test Data
+search:
+  term: "playwright uat"
+  expectedResults: 5
+  regularsku: "2598637"
+
+users:
+  regularuser:
+    username: "uat_regular_user"
+    password: "uat_regular_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"
+  rewarduser:
+    username: "uat_reward_user"
+    password: "uat_reward_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"
+  diamonduser:
+    username: "uat_diamond_user"
+    password: "uat_diamond_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"

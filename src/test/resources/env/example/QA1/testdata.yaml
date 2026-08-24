@@ -1,0 +1,19 @@
+# QA1 Environment Test Data
+search:
+  term: "playwright"
+  expectedResults: 10
+  regularsku: "2598637"
+
+users:
+  regularuser:
+    username: "qa2automationregularuser31@dbvi.com"
+    password: "Dbvi@1234"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"
+  rewarduser:
+    username: "qa1_reward_user"
+    password: "qa1_reward_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"
+  diamonduser:
+    username: "qa1_diamond_user"
+    password: "qa1_diamond_password"
+    twoFactorSecret: "BP26 TDZU Z5SV PZJR"

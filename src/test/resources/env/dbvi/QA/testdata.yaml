@@ -1,0 +1,6 @@
+# QA Environment Test Data - MMS Member Portal
+# password is PBEWithMD5AndDES-encrypted (see EncryptionUtil); decrypted at read time in LoginSteps
+users:
+  member:
+    username: "jignesh.dbvi@gmail.com"
+    password: "6Firc6/aYCG9HkwvnNVqyg=="
