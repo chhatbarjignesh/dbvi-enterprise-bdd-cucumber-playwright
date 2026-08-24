@@ -1,0 +1,121 @@
+name: Playwright BDD Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Spotless Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "11"
+          cache: maven
+
+      - name: Check code formatting (Google Java Format / AOSP)
+        run: mvn -q spotless:check
+
+  test:
+    name: Run BDD Scenarios (Headless)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "11"
+          cache: maven
+
+      - name: Resolve Playwright version from pom.xml
+        id: playwright-version
+        run: |
+          VERSION=$(mvn -q -DforceStdout help:evaluate -Dexpression=playwright.version)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Install Playwright browsers (chromium + OS deps)
+        run: npx -y playwright@${{ steps.playwright-version.outputs.version }} install --with-deps chromium
+
+      # Two separate `mvn test` invocations because TestData resolves its YAML file from a
+      # single global `project-name`/`env` pair per JVM run (see FrameworkProperties). Both
+      # write into the same target/allure-results dir (no `clean` in between) so they combine
+      # into one Allure report below.
+      - name: Run framework self-test scenarios (project=example)
+        run: |
+          mvn test \
+            -Dcucumber.filter.tags="not @MMS_REGRESSION" \
+            -Dproject-name=example \
+            -Dheadless=true \
+            -Dread-credentials-from-db=false \
+            -Dperfecto.enabled=false \
+            -Drp.enable=false
+
+      - name: Run MMS Member Portal login scenario (project=dbvi)
+        if: always()
+        run: |
+          mvn test \
+            -Dcucumber.filter.tags="@MMS_REGRESSION" \
+            -Dproject-name=dbvi \
+            -Denv=QA \
+            -Durl="https://testmms.na.dadabhagwan.org/" \
+            -Dheadless=true \
+            -Dread-credentials-from-db=false \
+            -Dperfecto.enabled=false \
+            -Drp.enable=false
+
+      - name: Upload raw Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: target/allure-results
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Fetch previous Allure history (for trend graphs)
+        if: always()
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure HTML report
+        if: always()
+        uses: simple-elf/allure-report-action@v1.15
+        with:
+          allure_results: target/allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Upload generated Allure report (build artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-history
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Publish Allure report to GitHub Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
